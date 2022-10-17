@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, depend_on_referenced_packages
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:cm_project/misc/fingerprint.dart';
+import 'package:cm_project/pages/giroscopeScreen/tracker.dart';
 import 'package:cm_project/pages/indexScreen/index.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +29,12 @@ class SplashScreen extends StatelessWidget {
       screenFunction: () async {
         //Implement methods to check for the API requests and widget build
         WidgetsFlutterBinding.ensureInitialized();
-        return IndexPage();
+
+        final is_authenticated = await FingerPrint.authenticate();
+        if (is_authenticated) {
+          return IndexPage();
+        }
+        return TrackerPage();
       },
       splashTransition: SplashTransition.fadeTransition,
     );

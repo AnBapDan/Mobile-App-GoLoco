@@ -41,19 +41,16 @@ class Places extends StatelessWidget {
                 asset: 'assets/logo.png',
                 message: 'Ganhe 30€ por convite',
               ),
-              space,
               PlacesWidget(
                 color: Color.fromARGB(255, 168, 70, 92),
                 asset: 'assets/logo.png',
                 message: 'Ganhe 30€ por convite',
               ),
-              space,
               PlacesWidget(
                 color: Color.fromARGB(255, 168, 70, 92),
                 asset: 'assets/logo.png',
                 message: 'Ganhe 30€ por convite',
               ),
-              space,
               PlacesWidget(
                 color: Color.fromARGB(255, 168, 70, 92),
                 asset: 'assets/logo.png',

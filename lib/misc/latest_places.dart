@@ -1,4 +1,3 @@
-import 'package:cm_project/misc/themes.dart';
 import 'package:flutter/material.dart';
 
 class PlacesWidget extends StatelessWidget {
@@ -15,33 +14,40 @@ class PlacesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    double value = 180;
+    final SizedBox space = SizedBox(
+      width: 10,
+    );
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: InkWell(
         onTap: () {},
-        child: Stack(
+        child: Row(
           children: [
-            FittedBox(
-              fit: BoxFit.fill,
-              child: Container(
-                color: Colors.red,
-                height: size.height,
-                width: size.height,
-              ),
-            ),
-            FittedBox(
-              fit: BoxFit.fill,
-              child: Container(
-                color: Color.fromARGB(121, 158, 158, 158),
-                height: size.height,
-                width: size.height,
-                child: Text(
-                  message,
-                  style: Theme.of(context).textTheme.subtitle1,
+            Stack(
+              children: [
+                FittedBox(
+                  fit: BoxFit.fill,
+                  child: Container(
+                    color: Colors.red,
+                    height: 180,
+                    width: 180,
+                  ),
                 ),
-              ),
-            )
+                SizedBox(
+                  child: Container(
+                    color: Color.fromARGB(121, 158, 158, 158),
+                    height: 10,
+                    width: 158,
+                    child: Text(
+                      message,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            space,
           ],
         ),
       ),
