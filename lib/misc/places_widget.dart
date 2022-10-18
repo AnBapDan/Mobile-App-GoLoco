@@ -15,7 +15,7 @@ class PlacesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double value = 180;
-    final SizedBox space = SizedBox(
+    const SizedBox space = SizedBox(
       width: 10,
     );
     return Padding(
@@ -27,9 +27,11 @@ class PlacesWidget extends StatelessWidget {
             Stack(
               children: [
                 SizedBox(
-                  height: 180,
-                  width: 180,
-                  child: Image.asset(asset, color: color),
+                  height: value,
+                  width: value,
+                  child: Image.asset(asset,
+                      // If the color is set to transparent, then the image is unlocked
+                      color: color == Colors.transparent ? null : color),
                 ),
                 Positioned(
                   bottom: 0,
@@ -37,7 +39,7 @@ class PlacesWidget extends StatelessWidget {
                     child: Container(
                       color: Color.fromARGB(121, 158, 158, 158),
                       height: 30,
-                      width: 180,
+                      width: value,
                       child: Text(
                         message,
                         style: Theme.of(context).textTheme.subtitle1,

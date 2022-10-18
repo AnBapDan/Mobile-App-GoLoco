@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:cm_project/misc/places_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +40,8 @@ class Places extends StatelessWidget {
                 itemCount: 5,
                 itemBuilder: (context, index) {
                   return PlacesWidget(
-                    color: Colors.grey,
+                    color:
+                        Random().nextBool() ? Colors.transparent : Colors.grey,
                     asset: 'assets/logo.png',
                     message: 'This is a test',
                   );

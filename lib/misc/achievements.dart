@@ -12,10 +12,18 @@ ListView createAchievements(itemCount) {
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
           ListTile(
-            leading: CircleAvatar(
-                backgroundImage: Image.asset('assets/logo_short.png').image,
-                backgroundColor: Colors.grey,
-                radius: 20),
+            leading: Container(
+              foregroundDecoration: BoxDecoration(
+                color: Colors.grey,
+                backgroundBlendMode: BlendMode.saturation,
+              ),
+              child: CircleAvatar(
+                  backgroundImage: Image.asset(
+                    'assets/logo_short.png',
+                  ).image,
+                  backgroundColor: Colors.transparent,
+                  radius: 20),
+            ),
             title: Text(
               '???????',
               style: Theme.of(context).textTheme.subtitle1,
