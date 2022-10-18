@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cm_project/misc/scroll.dart';
 import 'package:cm_project/misc/themes.dart';
 
 import 'package:cm_project/pages/splashScreen/splash.dart';
@@ -22,6 +23,12 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: child!,
+        );
+      },
       title: 'GoLoco',
       theme: themes(),
       home: SplashScreen(),
