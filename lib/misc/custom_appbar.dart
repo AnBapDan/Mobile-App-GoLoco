@@ -10,21 +10,22 @@ class GoAppBar extends StatefulWidget {
 }
 
 class _GoAppBarState extends State<GoAppBar> {
-  double size = 30;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: AppBar(
         leading: Image.asset(
           'assets/logo.png',
-          scale: 5,
         ),
         actions: [
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.notifications),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.settings),
+          )
         ],
       ),
     );

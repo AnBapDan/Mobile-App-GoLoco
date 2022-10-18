@@ -58,6 +58,8 @@ ThemeData themes() {
         subtitle2: TextStyle(
             color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
         bodyText1: TextStyle(color: Colors.white),
+        caption: TextStyle(
+            color: Colors.white, fontSize: 10, fontWeight: FontWeight.w400),
       ),
     ),
     indicatorColor: Colors.transparent,

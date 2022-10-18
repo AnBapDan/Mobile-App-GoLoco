@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cm_project/misc/latest_places.dart';
+import 'package:cm_project/misc/places_widget.dart';
 import 'package:flutter/material.dart';
 
 class Places extends StatelessWidget {
@@ -27,37 +27,23 @@ class Places extends StatelessWidget {
             style: Theme.of(context).textTheme.headline3,
           ),
         ),
-        SizedBox(
-          height: size.height / 5,
-          width: size.width,
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              space,
-              PlacesWidget(
-                color: Color.fromARGB(255, 168, 70, 92),
-                asset: 'assets/logo.png',
-                message: 'Ganhe 30€ por convite',
-              ),
-              PlacesWidget(
-                color: Color.fromARGB(255, 168, 70, 92),
-                asset: 'assets/logo.png',
-                message: 'Ganhe 30€ por convite',
-              ),
-              PlacesWidget(
-                color: Color.fromARGB(255, 168, 70, 92),
-                asset: 'assets/logo.png',
-                message: 'Ganhe 30€ por convite',
-              ),
-              PlacesWidget(
-                color: Color.fromARGB(255, 168, 70, 92),
-                asset: 'assets/logo.png',
-                message: 'Ganhe 30€ por convite',
-              ),
-            ],
-          ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: SizedBox(
+              height: size.height / 5,
+              width: size.width,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return PlacesWidget(
+                    color: Colors.grey,
+                    asset: 'assets/logo.png',
+                    message: 'This is a test',
+                  );
+                },
+              )),
         ),
       ],
     );

@@ -33,6 +33,9 @@ class FingerPrint {
               'Usa a impressão digital para desbloquear a aplicação',
           authMessages: const <AuthMessages>[
             AndroidAuthMessages(
+              biometricNotRecognized: 'Não Reconhecido. Tenta Novamente',
+              biometricSuccess: 'Impressão Digital Reconhecida',
+              biometricHint: 'Autenticação da aplicação',
               signInTitle: 'Impressão Digital Necessária',
               cancelButton: 'Recusar',
             ),

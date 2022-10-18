@@ -26,22 +26,22 @@ class PlacesWidget extends StatelessWidget {
           children: [
             Stack(
               children: [
-                FittedBox(
-                  fit: BoxFit.fill,
-                  child: Container(
-                    color: Colors.red,
-                    height: 180,
-                    width: 180,
-                  ),
-                ),
                 SizedBox(
-                  child: Container(
-                    color: Color.fromARGB(121, 158, 158, 158),
-                    height: 10,
-                    width: 158,
-                    child: Text(
-                      message,
-                      style: Theme.of(context).textTheme.subtitle1,
+                  height: 180,
+                  width: 180,
+                  child: Image.asset(asset, color: color),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: SizedBox(
+                    child: Container(
+                      color: Color.fromARGB(121, 158, 158, 158),
+                      height: 30,
+                      width: 180,
+                      child: Text(
+                        message,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                     ),
                   ),
                 ),

@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, depend_on_referenced_packages
 
+import 'dart:io';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:cm_project/misc/fingerprint.dart';
 import 'package:cm_project/pages/giroscopeScreen/tracker.dart';
 import 'package:cm_project/pages/indexScreen/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -34,7 +37,7 @@ class SplashScreen extends StatelessWidget {
         if (is_authenticated) {
           return IndexPage();
         }
-        return TrackerPage();
+        return exit(0);
       },
       splashTransition: SplashTransition.fadeTransition,
     );

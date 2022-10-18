@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cm_project/misc/achievements.dart';
 import 'package:cm_project/misc/custom_appbar.dart';
-import 'package:cm_project/misc/latest_places.dart';
+import 'package:cm_project/misc/places_widget.dart';
 import 'package:cm_project/misc/themes.dart';
 import 'package:cm_project/pages/giroscopeScreen/tracker.dart';
 import 'package:cm_project/pages/indexScreen/panel_places.dart';
@@ -19,7 +20,7 @@ class IndexPage extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(size.height * 0.1),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: GoAppBar(),
           ),
         ),
@@ -44,8 +45,6 @@ class IndexPage extends StatelessWidget {
                 height: size.height * 0.05,
               ),
               Container(
-                height: size.height,
-                width: size.width,
                 decoration: containers(Color.fromARGB(33, 255, 255, 255)),
                 child: Padding(
                   padding: EdgeInsets.all(10),
@@ -73,6 +72,7 @@ class IndexPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
+                      createAchievements(5),
                     ],
                   ),
                 ),
