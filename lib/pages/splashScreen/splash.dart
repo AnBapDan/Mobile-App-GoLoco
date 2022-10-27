@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, depend_on_referenced_packages
-
-import 'dart:io';
-
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:cm_project/misc/fingerprint.dart';
-import 'package:cm_project/pages/giroscopeScreen/tracker.dart';
+import 'package:cm_project/blocs/app_blocs.dart';
+import 'package:cm_project/blocs/app_events.dart';
+import 'package:cm_project/blocs/app_states.dart';
 import 'package:cm_project/pages/indexScreen/index.dart';
+import 'package:cm_project/pages/registerScreen/register.dart';
+import 'package:cm_project/repos/repositories.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -16,30 +15,38 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return AnimatedSplashScreen.withScreenFunction(
-      backgroundColor: Colors.black,
-      splash: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Image.asset(
-              'assets/logo.png',
-            ),
-          ),
-        ],
-      ),
-      screenFunction: () async {
-        //Implement methods to check for the API requests and widget build
-        WidgetsFlutterBinding.ensureInitialized();
-
-        final is_authenticated = await FingerPrint.authenticate();
-        if (is_authenticated) {
+    return BlocProvider(
+      create: (context) => ProfileBloc(
+        RepositoryProvider.of<ProfileRepository>(context),
+      )..add(LoadProfileEvent()),
+      child: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+        if (state is ProfileLoadingState) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Image.asset(
+                  'assets/logo.png',
+                ),
+              ),
+            ],
+          );
+        }
+        if (state is ProfileCreateState) {
+          return RegisterPage(
+            deviceId: state.deviceId,
+          );
+        }
+        if (state is ProfileLoadedState) {
+          WidgetsFlutterBinding.ensureInitialized();
           return IndexPage();
         }
-        return exit(0);
-      },
-      splashTransition: SplashTransition.fadeTransition,
+        if (state is ProfileErrorState) {
+          print(state.error);
+        }
+        return Text('Fora');
+      }),
     );
   }
 }

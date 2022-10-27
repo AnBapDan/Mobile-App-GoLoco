@@ -4,8 +4,10 @@ import 'package:cm_project/misc/scroll.dart';
 import 'package:cm_project/misc/themes.dart';
 
 import 'package:cm_project/pages/splashScreen/splash.dart';
+import 'package:cm_project/repos/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future main() async {
   runApp(const MyApp());
@@ -31,7 +33,14 @@ class MyApp extends StatelessWidget {
       },
       title: 'GoLoco',
       theme: themes(),
-      home: SplashScreen(),
+      home: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(create: (context) => AchievementRepository()),
+          RepositoryProvider(create: (context) => MarkersRepository()),
+          RepositoryProvider(create: (context) => ProfileRepository()),
+        ],
+        child: SplashScreen(),
+      ),
     );
   }
 }

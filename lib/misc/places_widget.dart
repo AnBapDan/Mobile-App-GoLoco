@@ -29,9 +29,12 @@ class PlacesWidget extends StatelessWidget {
                 SizedBox(
                   height: value,
                   width: value,
-                  child: Image.asset(asset,
-                      // If the color is set to transparent, then the image is unlocked
-                      color: color == Colors.transparent ? null : color),
+                  child: Image.asset(
+                    asset,
+                    fit: BoxFit.fill,
+                    color: color == Colors.transparent ? null : color,
+                    colorBlendMode: BlendMode.color,
+                  ),
                 ),
                 Positioned(
                   bottom: 0,

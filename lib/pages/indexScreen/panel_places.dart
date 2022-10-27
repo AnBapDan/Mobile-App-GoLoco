@@ -30,7 +30,7 @@ class Places extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: SizedBox(
               height: size.height / 5,
               width: size.width,
@@ -42,7 +42,7 @@ class Places extends StatelessWidget {
                   return PlacesWidget(
                     color:
                         Random().nextBool() ? Colors.transparent : Colors.grey,
-                    asset: 'assets/logo.png',
+                    asset: 'assets/deti.png',
                     message: 'This is a test',
                   );
                 },

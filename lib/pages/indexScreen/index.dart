@@ -2,9 +2,8 @@
 
 import 'package:cm_project/misc/achievements.dart';
 import 'package:cm_project/misc/custom_appbar.dart';
-import 'package:cm_project/misc/places_widget.dart';
 import 'package:cm_project/misc/themes.dart';
-import 'package:cm_project/pages/giroscopeScreen/tracker.dart';
+import 'package:cm_project/pages/mapScreen/maps.dart';
 import 'package:cm_project/pages/indexScreen/panel_places.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class IndexPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.1),
+          preferredSize: Size.fromHeight(size.height * 0.055),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: GoAppBar(),
@@ -29,7 +28,7 @@ class IndexPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: size.height * 0.14,
+                height: size.height * 0.09,
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Center(
@@ -42,7 +41,7 @@ class IndexPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: size.height * 0.05,
+                height: size.height * 0.01,
               ),
               Container(
                 decoration: containers(Color.fromARGB(33, 255, 255, 255)),
@@ -85,7 +84,7 @@ class IndexPage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TrackerPage()),
+              MaterialPageRoute(builder: (context) => MapsPage()),
             );
           },
           label: Text(
