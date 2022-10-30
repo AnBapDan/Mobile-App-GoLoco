@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cm_project/misc/scroll.dart';
-import 'package:cm_project/misc/themes.dart';
-
+import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_repo.dart';
+import 'package:cm_project/blocs/profile_bloc/bloc/profile_repo.dart';
+import 'package:cm_project/utils/scroll.dart';
+import 'package:cm_project/utils/themes.dart';
 import 'package:cm_project/pages/splashScreen/splash.dart';
-import 'package:cm_project/repos/repositories.dart';
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

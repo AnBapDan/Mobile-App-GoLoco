@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:cm_project/misc/achievements.dart';
-import 'package:cm_project/misc/custom_appbar.dart';
-import 'package:cm_project/misc/themes.dart';
-import 'package:cm_project/pages/mapScreen/maps.dart';
-import 'package:cm_project/pages/indexScreen/panel_places.dart';
+import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:cm_project/pages/indexScreen/utils/data_panel.dart';
+import 'package:cm_project/pages/indexScreen/utils/search_places_button.dart';
+import 'package:cm_project/pages/indexScreen/utils/welcome_panel.dart';
+import 'package:cm_project/utils/custom_appbar.dart';
+import 'package:cm_project/models/profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
@@ -13,7 +15,11 @@ class IndexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    ProfileState state = BlocProvider.of<ProfileBloc>(context).state;
+    ProfileModel profile = ProfileModel.init();
+    if (state is ProfileLoadedState) {
+      profile = state.profile;
+    }
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -27,72 +33,16 @@ class IndexPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: size.height * 0.09,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Center(
-                    child: Text(
-                      textAlign: TextAlign.start,
-                      'Bem Vindo(a), Daniel',
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                  ),
-                ),
-              ),
+              WelcomePanel(size: size, profile: profile),
               SizedBox(
                 height: size.height * 0.01,
               ),
-              Container(
-                decoration: containers(Color.fromARGB(33, 255, 255, 255)),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Os Meus Dados',
-                          style: Theme.of(context).textTheme.headline2,
-                        ),
-                      ),
-                      Places(size: size),
-                      Divider(
-                        color: Colors.white70,
-                        thickness: 2,
-                        indent: 3,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Conquistas',
-                          style: Theme.of(context).textTheme.headline3,
-                        ),
-                      ),
-                      createAchievements(5),
-                    ],
-                  ),
-                ),
-              ),
+              DataPanel(size: size),
             ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MapsPage()),
-            );
-          },
-          label: Text(
-            'Procurar Locais',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          icon: Icon(Icons.search),
-        ),
+        floatingActionButton: SearchPlacesButton(),
       ),
     );
   }

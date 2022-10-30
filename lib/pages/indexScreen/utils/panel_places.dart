@@ -2,7 +2,7 @@
 
 import 'dart:math';
 
-import 'package:cm_project/misc/places_widget.dart';
+import 'package:cm_project/utils/places_widget.dart';
 import 'package:flutter/material.dart';
 
 class Places extends StatelessWidget {
@@ -22,13 +22,6 @@ class Places extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Ultimos Locais',
-            style: Theme.of(context).textTheme.headline3,
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: SizedBox(

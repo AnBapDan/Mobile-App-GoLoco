@@ -1,22 +1,4 @@
-import 'package:cm_project/models/profile_model.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-
-// Achievement Related Stuff
-@immutable
-abstract class AchievementState extends Equatable {}
-
-class AchievementLoadingState extends AchievementState {
-  @override
-  List<Object?> get props => [];
-}
-
-class AchievementLoadedState extends AchievementState {
-  @override
-  List<Object?> get props => [];
-}
-
-// Profile Related Stuff
+part of 'profile_bloc.dart';
 
 @immutable
 abstract class ProfileState extends Equatable {}
@@ -35,9 +17,6 @@ class ProfileLoadedState extends ProfileState {
 }
 
 class ProfileCreateState extends ProfileState {
-  ProfileCreateState(this.deviceId);
-  final String? deviceId;
-
   @override
   List<Object?> get props => [];
 }
