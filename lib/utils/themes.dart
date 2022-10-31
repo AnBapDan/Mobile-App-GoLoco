@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData themes() {
   return ThemeData(
+    iconTheme: IconThemeData(
+      color: Color(0xff0077b6),
+    ),
     //Scaffold colors
     scaffoldBackgroundColor: Colors.black,
     splashColor: Colors.black,
@@ -48,18 +51,30 @@ ThemeData themes() {
     textTheme: GoogleFonts.ubuntuTextTheme(
       TextTheme(
         headline1: TextStyle(
-            color: Colors.white, fontSize: 34, fontWeight: FontWeight.bold),
+            color: Color.fromARGB(255, 202, 225, 229),
+            fontSize: 34,
+            fontWeight: FontWeight.bold),
         headline2: TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            color: Color.fromARGB(255, 202, 225, 229),
+            fontSize: 24,
+            fontWeight: FontWeight.bold),
         headline3: TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Color.fromARGB(255, 202, 225, 229),
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
         subtitle1: TextStyle(
-            color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+            color: Color.fromARGB(255, 202, 225, 229),
+            fontSize: 14,
+            fontWeight: FontWeight.w500),
         subtitle2: TextStyle(
-            color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
-        bodyText1: TextStyle(color: Colors.white),
+            color: Color.fromARGB(255, 202, 225, 229),
+            fontSize: 14,
+            fontWeight: FontWeight.w400),
+        bodyText1: TextStyle(color: Color.fromARGB(255, 202, 225, 229)),
         caption: TextStyle(
-            color: Colors.white, fontSize: 10, fontWeight: FontWeight.w400),
+            color: Color.fromARGB(255, 202, 225, 229),
+            fontSize: 10,
+            fontWeight: FontWeight.w400),
       ),
     ),
     indicatorColor: Colors.transparent,

@@ -15,7 +15,7 @@ class DataPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: containers(Color.fromARGB(33, 255, 255, 255)),
+      decoration: containers(Color.fromARGB(71, 0, 180, 216)),
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
@@ -32,7 +32,7 @@ class DataPanel extends StatelessWidget {
             ),
             Places(size: size),
             Divider(
-              color: Colors.white70,
+              color: Color.fromARGB(255, 202, 225, 229),
               thickness: 2,
               indent: 3,
             ),

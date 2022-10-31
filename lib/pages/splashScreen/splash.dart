@@ -42,7 +42,10 @@ class SplashScreen extends StatelessWidget {
         if (state is ProfileErrorState) {
           print(state.error);
         }
-        return Text('Fora');
+        return Text(
+          'Oops, algo deu errado.',
+          style: Theme.of(context).textTheme.headline1,
+        );
       }),
     );
   }

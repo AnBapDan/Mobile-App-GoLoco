@@ -20,11 +20,17 @@ class _GoAppBarState extends State<GoAppBar> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications),
+            icon: Icon(
+              Icons.notifications,
+              color: Color.fromARGB(255, 202, 225, 229),
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.settings),
+            icon: Icon(
+              Icons.settings,
+              color: Color.fromARGB(255, 202, 225, 229),
+            ),
           )
         ],
       ),

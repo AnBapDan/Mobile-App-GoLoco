@@ -23,23 +23,23 @@ class ProfileRepository {
     String password,
     String deviceId,
   ) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    String profileEndpoint = 'http://localhost:3000/create_account';
-    http.Response response = await http.post(
-      Uri.parse(profileEndpoint),
-      body: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'deviceId': deviceId,
-      },
-    );
-    if (response.statusCode == 200) {
-      sp.setString('user_key', jsonDecode(response.body)['key']);
-      return ProfileModel.fromJson(jsonDecode(response.body)['profile']);
-    } else {
-      throw Exception(response.reasonPhrase);
-    }
+    // SharedPreferences sp = await SharedPreferences.getInstance();
+    // String profileEndpoint = 'http://localhost:3000/create_account';
+    // http.Response response = await http.post(
+    //   Uri.parse(profileEndpoint),
+    //   body: {
+    //     'name': name,
+    //     'email': email,
+    //     'password': password,
+    //     'deviceId': deviceId,
+    //   },
+    // );
+    // if (response.statusCode == 200) {
+    //   sp.setString('user_key', jsonDecode(response.body)['key']);
+    //   return ProfileModel.fromJson(jsonDecode(response.body)['profile']);
+    // } else {
+    //   throw Exception(response.reasonPhrase);
+    // }
     return ProfileModel(
         name: 'Emulated', avatar: 'assets/avatar.png', token: 'abcde');
   }

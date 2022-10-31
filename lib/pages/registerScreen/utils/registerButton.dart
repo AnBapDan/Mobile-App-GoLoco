@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +10,9 @@ class RegisterButton extends StatelessWidget {
   final String email;
   final String password;
   final String check;
-  final GlobalKey<FormState> form;
 
   const RegisterButton({
     Key? key,
-    required this.form,
     required this.password,
     required this.check,
     required this.name,
@@ -22,7 +22,20 @@ class RegisterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      backgroundColor: Color.fromARGB(25, 202, 240, 248),
+      shape: ContinuousRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       onPressed: () async {
+        // if (false) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       duration: Duration(seconds: 3),
+        //       content: Text('Erros detetados'),
+        //     ),
+        //   );
+        //   return;
+        // }
         if (password != check) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -30,16 +43,8 @@ class RegisterButton extends StatelessWidget {
               content: Text('Verifica as passwords'),
             ),
           );
+          return;
         }
-        if (!form.currentState!.validate()) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              duration: Duration(seconds: 3),
-              content: Text('Verifica novamente os campos acima'),
-            ),
-          );
-        }
-
         String? deviceId = await PlatformDeviceId.getDeviceId;
 
         return BlocProvider.of<ProfileBloc>(context).add(
