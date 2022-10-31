@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_const_constructors
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'utils/registerButton.dart';
 
 class RegisterPage extends StatelessWidget {

@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   animated_splash_screen: ^1.3.0
+  geolocator:
   camera:
   equatable:
   flutter_bloc:

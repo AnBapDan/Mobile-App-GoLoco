@@ -1,9 +1,17 @@
-import 'dart:math';
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors
 
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
+import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_bloc.dart';
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_repo.dart';
+import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:cm_project/pages/mapScreen/widgets/location_marker.dart';
 import 'package:cm_project/pages/mapScreen/utils/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
@@ -60,107 +68,96 @@ class MapsPageState extends State<MapsPage> {
     }
   }
 
-  Widget _buildMarkerWidget(Offset pos, Color color,
-      [IconData icon = Icons.location_on]) {
-    return Positioned(
-      left: pos.dx - 24,
-      top: pos.dy - 24,
-      width: 48,
-      height: 48,
-      child: GestureDetector(
-        child: Icon(
-          icon,
-          color: color,
-          size: 48,
-        ),
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) => const AlertDialog(
-              content: Text('You have clicked a marker!'),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MapLayout(
-        controller: controller,
-        builder: (context, transformer) {
-          final markerPositions = markers.map(transformer.toOffset).toList();
+    return BlocBuilder<MapBloc, MapState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: MapLayout(
+            controller: controller,
+            builder: (context, transformer) {
+              final markerPositions =
+                  markers.map(transformer.toOffset).toList();
 
-          final markerWidgets = markerPositions.map(
-            (pos) => _buildMarkerWidget(pos, Colors.red),
-          );
+              final markerWidgets = markerPositions.map(
+                (pos) => BuildMarkerWidget(pos, Colors.red, context),
+              );
 
-          return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onDoubleTapDown: (details) => _onDoubleTap(
-              transformer,
-              details.localPosition,
-            ),
-            onScaleStart: _onScaleStart,
-            onScaleUpdate: (details) => _onScaleUpdate(details, transformer),
-            child: Listener(
-              behavior: HitTestBehavior.opaque,
-              onPointerSignal: (event) {
-                if (event is PointerScrollEvent) {
-                  final delta = event.scrollDelta.dy / -1000.0;
-                  final zoom = clamp(controller.zoom + delta, 2, 18);
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onDoubleTapDown: (details) => _onDoubleTap(
+                  transformer,
+                  details.localPosition,
+                ),
+                onScaleStart: _onScaleStart,
+                onScaleUpdate: (details) =>
+                    _onScaleUpdate(details, transformer),
+                child: Listener(
+                  behavior: HitTestBehavior.opaque,
+                  onPointerSignal: (event) {
+                    if (event is PointerScrollEvent) {
+                      final delta = event.scrollDelta.dy / -1000.0;
+                      final zoom = clamp(controller.zoom + delta, 2, 18);
 
-                  transformer.setZoomInPlace(zoom, event.localPosition);
-                  setState(() {});
-                }
-              },
-              child: Stack(
-                children: [
-                  TileLayer(
-                    builder: (context, x, y, z) {
-                      final tilesInZoom = pow(2.0, z).floor();
+                      transformer.setZoomInPlace(zoom, event.localPosition);
+                      setState(() {});
+                    }
+                  },
+                  child: Stack(
+                    children: [
+                      TileLayer(
+                        builder: (context, x, y, z) {
+                          final tilesInZoom = pow(2.0, z).floor();
 
-                      while (x < 0) {
-                        x += tilesInZoom;
-                      }
-                      while (y < 0) {
-                        y += tilesInZoom;
-                      }
+                          while (x < 0) {
+                            x += tilesInZoom;
+                          }
+                          while (y < 0) {
+                            y += tilesInZoom;
+                          }
 
-                      x %= tilesInZoom;
-                      y %= tilesInZoom;
+                          x %= tilesInZoom;
+                          y %= tilesInZoom;
 
-                      return CachedNetworkImage(
-                        imageUrl: google(z, x, y),
-                        fit: BoxFit.cover,
-                      );
-                    },
+                          return CachedNetworkImage(
+                            imageUrl: google(z, x, y),
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                      ...markerWidgets,
+                      Positioned(
+                        top: 30,
+                        left: 10,
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.arrow_back),
+                        ),
+                      ),
+                    ],
                   ),
-                  ...markerWidgets,
-                  Positioned(
-                    top: 30,
-                    left: 10,
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _gotoDefault,
-        tooltip: 'My Location',
-        child: const Icon(Icons.my_location),
-      ),
+                ),
+              );
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              print(state);
+              if (state is MapLoadedState) {
+                print('aqui');
+                controller.center = LatLng(
+                  state.position.latitude,
+                  state.position.longitude,
+                );
+              }
+            },
+            child: const Icon(Icons.my_location),
+          ),
+        );
+      },
     );
   }
 }

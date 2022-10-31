@@ -1,4 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, depend_on_referenced_packages
+import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
+import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_bloc.dart';
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_repo.dart';
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_repo.dart';
 import 'package:cm_project/pages/indexScreen/index.dart';
@@ -13,40 +17,37 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return BlocProvider(
-      create: (context) => ProfileBloc(
-        RepositoryProvider.of<ProfileRepository>(context),
-      )..add(LoadProfileEvent()),
-      child: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-        if (state is ProfileLoadingState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Image.asset(
-                  'assets/logo.png',
+    return BlocBuilder<ProfileBloc, ProfileState>(
+        bloc: BlocProvider.of<ProfileBloc>(context),
+        builder: (context, state) {
+          if (state is ProfileLoadingState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    'assets/logo.png',
+                  ),
                 ),
-              ),
-            ],
-          );
-        }
+              ],
+            );
+          }
 
-        if (state is ProfileCreateState) {
-          return RegisterPage();
-        }
-        if (state is ProfileLoadedState) {
-          WidgetsFlutterBinding.ensureInitialized();
-          return IndexPage();
-        }
-        if (state is ProfileErrorState) {
-          print(state.error);
-        }
-        return Text(
-          'Oops, algo deu errado.',
-          style: Theme.of(context).textTheme.headline1,
-        );
-      }),
-    );
+          if (state is ProfileCreateState) {
+            return RegisterPage();
+          }
+          if (state is ProfileLoadedState) {
+            WidgetsFlutterBinding.ensureInitialized();
+            return IndexPage(context);
+          }
+          if (state is ProfileErrorState) {
+            print(state.error);
+          }
+          return Text(
+            'Oops, algo deu errado.',
+            style: Theme.of(context).textTheme.headline1,
+          );
+        });
   }
 }

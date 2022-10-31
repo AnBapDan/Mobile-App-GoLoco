@@ -4,46 +4,62 @@ import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:cm_project/pages/indexScreen/utils/data_panel.dart';
 import 'package:cm_project/pages/indexScreen/utils/search_places_button.dart';
 import 'package:cm_project/pages/indexScreen/utils/welcome_panel.dart';
+import 'package:cm_project/pages/mapScreen/maps.dart';
 import 'package:cm_project/utils/custom_appbar.dart';
 import 'package:cm_project/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IndexPage extends StatelessWidget {
-  const IndexPage({super.key});
+  IndexPage(this.context, {super.key});
+  BuildContext context;
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     Size size = MediaQuery.of(context).size;
-    ProfileState state = BlocProvider.of<ProfileBloc>(context).state;
     ProfileModel profile = ProfileModel.init();
-    if (state is ProfileLoadedState) {
-      profile = state.profile;
-    }
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.055),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: GoAppBar(),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(size.height * 0.055),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: GoAppBar(),
+            ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              WelcomePanel(size: size, profile: profile),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              DataPanel(size: size),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MapsPage()),
+                    );
+                  },
+                  child: Text('Counter'),
+                ),
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    if (state is ProfileLoadedState) {
+                      return WelcomePanel(size: size, profile: state.profile);
+                    } else {
+                      return WelcomePanel(size: size, profile: profile);
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                DataPanel(size: size),
+              ],
+            ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: SearchPlacesButton(),
-      ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: SearchPlacesButton()),
     );
   }
 }

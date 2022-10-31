@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_repo.dart';
+import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
+import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_repo.dart';
 import 'package:cm_project/utils/scroll.dart';
 import 'package:cm_project/utils/themes.dart';
@@ -24,23 +27,38 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) {
-        return ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: child!,
-        );
-      },
-      title: 'GoLoco',
-      theme: themes(),
-      home: MultiRepositoryProvider(
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => AchievementRepository()),
+        RepositoryProvider(create: (context) => MarkersRepository()),
+        RepositoryProvider(create: (context) => ProfileRepository()),
+        RepositoryProvider(create: (context) => MapRepository()),
+      ],
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider(create: (context) => AchievementRepository()),
-          RepositoryProvider(create: (context) => MarkersRepository()),
-          RepositoryProvider(create: (context) => ProfileRepository()),
+          BlocProvider(
+            create: (context) => ProfileBloc(
+              RepositoryProvider.of<ProfileRepository>(context),
+            )..add(LoadProfileEvent()),
+          ),
+          BlocProvider(
+            create: (context) => MapBloc(
+              RepositoryProvider.of<MapRepository>(context),
+            ),
+          ),
         ],
-        child: SplashScreen(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (context, child) {
+            return ScrollConfiguration(
+              behavior: MyBehavior(),
+              child: child!,
+            );
+          },
+          title: 'GoLoco',
+          theme: themes(),
+          home: SplashScreen(),
+        ),
       ),
     );
   }

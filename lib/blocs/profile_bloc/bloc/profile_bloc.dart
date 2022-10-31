@@ -2,10 +2,8 @@ import 'package:cm_project/blocs/profile_bloc/bloc/profile_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cm_project/models/profile_model.dart';
 import 'package:cm_project/pages/splashScreen/utils/fingerprint.dart';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:local_auth/error_codes.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,6 +19,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
       //check biometrics / pin
       final isAuthenticated = await FingerPrint.authenticate();
+      //TODO
       if (!isAuthenticated) {}
 
       //Get key if exists
