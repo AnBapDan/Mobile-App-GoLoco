@@ -4,7 +4,6 @@ import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:cm_project/pages/indexScreen/utils/data_panel.dart';
 import 'package:cm_project/pages/indexScreen/utils/search_places_button.dart';
 import 'package:cm_project/pages/indexScreen/utils/welcome_panel.dart';
-import 'package:cm_project/pages/mapScreen/maps.dart';
 import 'package:cm_project/utils/custom_appbar.dart';
 import 'package:cm_project/models/profile_model.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ class IndexPage extends StatelessWidget {
     ProfileModel profile = ProfileModel.init();
     return SafeArea(
       child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(size.height * 0.055),
             child: Padding(
@@ -32,15 +32,6 @@ class IndexPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MapsPage()),
-                    );
-                  },
-                  child: Text('Counter'),
-                ),
                 BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
                     if (state is ProfileLoadedState) {

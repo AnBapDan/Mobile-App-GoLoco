@@ -1,8 +1,7 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 class MapRepository {
-  Future<Position> getCurrentLocation() async {
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.bestForNavigation);
+  Future<LocationData> getCurrentLocation() async {
+    return await Location().getLocation();
   }
 }

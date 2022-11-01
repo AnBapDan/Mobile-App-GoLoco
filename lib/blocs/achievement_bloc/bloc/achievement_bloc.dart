@@ -1,4 +1,5 @@
 import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_repo.dart';
+import 'package:cm_project/models/markers_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,19 +1,14 @@
-// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, prefer_typing_uninitialized_variables
 
-import 'dart:math';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
-import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+import 'dart:async';
 import 'package:cm_project/blocs/markers_bloc/bloc/marker_bloc.dart';
-import 'package:cm_project/blocs/markers_bloc/bloc/marker_repo.dart';
-import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
-import 'package:cm_project/pages/mapScreen/widgets/location_marker.dart';
-import 'package:cm_project/pages/mapScreen/utils/utils.dart';
-import 'package:flutter/gestures.dart';
+import 'package:cm_project/pages/mapScreen/utils/mapstyle.dart';
+import 'package:cm_project/pages/mapScreen/widgets/marker_widget.dart';
+import 'package:cm_project/pages/mapScreen/widgets/position_button.dart';
+import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:latlng/latlng.dart';
-import 'package:map/map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapsPage extends StatefulWidget {
   const MapsPage({Key? key}) : super(key: key);
@@ -23,140 +18,63 @@ class MapsPage extends StatefulWidget {
 }
 
 class MapsPageState extends State<MapsPage> {
-  final controller = MapController(
-    location: const LatLng(40.6348327, -8.6480886),
-  );
-
-  final markers = [const LatLng(40.6348327, -8.6480886)];
-
-  void _gotoDefault() {
-    controller.center = const LatLng(40.6348327, -8.6480886);
-    setState(() {});
-  }
-
-  void _onDoubleTap(MapTransformer transformer, Offset position) {
-    const delta = 0.5;
-    final zoom = clamp(controller.zoom + delta, 2, 18);
-
-    transformer.setZoomInPlace(zoom, position);
-    setState(() {});
-  }
-
-  Offset? _dragStart;
-  double _scaleStart = 1.0;
-  void _onScaleStart(ScaleStartDetails details) {
-    _dragStart = details.focalPoint;
-    _scaleStart = 1.0;
-  }
-
-  void _onScaleUpdate(ScaleUpdateDetails details, MapTransformer transformer) {
-    final scaleDiff = details.scale - _scaleStart;
-    _scaleStart = details.scale;
-
-    if (scaleDiff > 0) {
-      controller.zoom += 0.02;
-      setState(() {});
-    } else if (scaleDiff < 0) {
-      controller.zoom -= 0.02;
-      setState(() {});
-    } else {
-      final now = details.focalPoint;
-      final diff = now - _dragStart!;
-      _dragStart = now;
-      transformer.drag(diff.dx, diff.dy);
-      setState(() {});
-    }
-  }
-
+  final Completer<GoogleMapController> _controller = Completer();
+  late final markersWidget;
   @override
   Widget build(BuildContext context) {
+    MarkersState mState = BlocProvider.of<MarkersBloc>(context).state;
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
-        return Scaffold(
-          body: MapLayout(
-            controller: controller,
-            builder: (context, transformer) {
-              final markerPositions =
-                  markers.map(transformer.toOffset).toList();
-
-              final markerWidgets = markerPositions.map(
-                (pos) => BuildMarkerWidget(pos, Colors.red, context),
-              );
-
-              return GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onDoubleTapDown: (details) => _onDoubleTap(
-                  transformer,
-                  details.localPosition,
-                ),
-                onScaleStart: _onScaleStart,
-                onScaleUpdate: (details) =>
-                    _onScaleUpdate(details, transformer),
-                child: Listener(
-                  behavior: HitTestBehavior.opaque,
-                  onPointerSignal: (event) {
-                    if (event is PointerScrollEvent) {
-                      final delta = event.scrollDelta.dy / -1000.0;
-                      final zoom = clamp(controller.zoom + delta, 2, 18);
-
-                      transformer.setZoomInPlace(zoom, event.localPosition);
-                      setState(() {});
-                    }
-                  },
-                  child: Stack(
-                    children: [
-                      TileLayer(
-                        builder: (context, x, y, z) {
-                          final tilesInZoom = pow(2.0, z).floor();
-
-                          while (x < 0) {
-                            x += tilesInZoom;
-                          }
-                          while (y < 0) {
-                            y += tilesInZoom;
-                          }
-
-                          x %= tilesInZoom;
-                          y %= tilesInZoom;
-
-                          return CachedNetworkImage(
-                            imageUrl: google(z, x, y),
-                            fit: BoxFit.cover,
-                          );
-                        },
+        if (state is MapLoadingState || mState is MarkersLoadingState) {
+          if (mState is MarkersLoadedState) {
+            markersWidget = mState.markers
+                .map((marker) => BuildMarkerWidget(marker, context));
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is MapLoadedState && mState is MarkersLoadedState) {
+          return SafeArea(
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  GoogleMap(
+                    //Remove os icones de +-
+                    zoomControlsEnabled: false,
+                    //Remove bussola do topo
+                    compassEnabled: false,
+                    buildingsEnabled: true,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
+                    markers: {...markersWidget},
+                    minMaxZoomPreference: MinMaxZoomPreference(16, 20),
+                    mapType: MapType.normal,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(
+                        state.position.latitude!,
+                        state.position.longitude!,
                       ),
-                      ...markerWidgets,
-                      Positioned(
-                        top: 30,
-                        left: 10,
-                        child: FloatingActionButton(
-                          heroTag: null,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.arrow_back),
-                        ),
-                      ),
-                    ],
+                      zoom: 19,
+                    ),
+                    onMapCreated: (GoogleMapController controller) async {
+                      changeMapMode(controller);
+                      _controller.complete(controller);
+                    },
                   ),
-                ),
-              );
-            },
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              print(state);
-              if (state is MapLoadedState) {
-                print('aqui');
-                controller.center = LatLng(
-                  state.position.latitude,
-                  state.position.longitude,
-                );
-              }
-            },
-            child: const Icon(Icons.my_location),
-          ),
-        );
+                  BackButton(),
+                ],
+              ),
+              floatingActionButton: PositionButton(controller: _controller),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'Oops, aconteceu algo de errado...',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+          );
+        }
       },
     );
   }

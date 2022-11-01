@@ -3,6 +3,7 @@
 import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_repo.dart';
 import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
 import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_bloc.dart';
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_repo.dart';
 import 'package:cm_project/utils/scroll.dart';
@@ -39,11 +40,18 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => ProfileBloc(
               RepositoryProvider.of<ProfileRepository>(context),
-            )..add(LoadProfileEvent()),
+            )..add(
+                LoadProfileEvent(),
+              ),
           ),
           BlocProvider(
             create: (context) => MapBloc(
               RepositoryProvider.of<MapRepository>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => MarkersBloc(
+              RepositoryProvider.of<MarkersRepository>(context),
             ),
           ),
         ],

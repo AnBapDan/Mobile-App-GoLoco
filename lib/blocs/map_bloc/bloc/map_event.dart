@@ -7,15 +7,9 @@ class LoadMapEvent extends MapEvent {
   List<Object?> get props => [];
 }
 
-class UpdateMapEvent extends MapEvent {
-  final Position position;
-  UpdateMapEvent(this.position);
-
+class UpdateLocationEvent extends MapEvent {
+  UpdateLocationEvent({required this.position});
+  final LocationData position;
   @override
   List<Object?> get props => [position];
-}
-
-class ResizeMapEvent extends MapEvent {
-  @override
-  List<Object?> get props => [];
 }
