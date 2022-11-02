@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData themes() {
   return ThemeData(
+    dialogBackgroundColor: Color.fromARGB(178, 0, 180, 216),
     iconTheme: IconThemeData(
       color: Color(0xff0077b6),
     ),
