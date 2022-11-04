@@ -35,5 +35,6 @@ To-Do List:
  - Add Settings menu
  - Integrate the Compass and QR Code pages
  - Unlock achievements
+ - Fixed Register Button Verification
 
  ![Screenshot](assets/logo.png)
