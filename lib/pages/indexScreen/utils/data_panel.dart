@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cm_project/pages/indexScreen/utils/panel_places.dart';
 import 'package:cm_project/pages/indexScreen/utils/sections_name.dart';
 import 'package:cm_project/utils/achievements.dart';
@@ -15,10 +17,12 @@ class DataPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //height: MediaQuery.of(context).size.height,
       decoration: containers(Color.fromARGB(71, 0, 180, 216)),
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -40,7 +44,7 @@ class DataPanel extends StatelessWidget {
               style: Theme.of(context).textTheme.headline3,
               title: 'Conquistas',
             ),
-            createAchievements(5),
+            createAchievements(),
           ],
         ),
       ),

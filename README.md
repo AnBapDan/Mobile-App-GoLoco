@@ -1,16 +1,37 @@
-# cm_project
+# GoLoco Application
 
-A new Flutter project.
+An Application built to search nearby places
 
-## Getting Started
+## Description
+GoLoco is an application that helps the community finding new locations to visit and explore.
+Due to its design, the app incentivizes to walk by giving them "achievements" to unlock!.
 
-This project is a starting point for a Flutter application.
+## Details
+First of all, the app requires a biometric authentication from the user.
+If not registered, the user is prompted with a Register Form.
+After filling the form, the profile is created and a "key" is saved inside Shared Preferences of Android.
 
-A few resources to get you started if this is your first Flutter project:
+The main panel is divided in 2 sections:
+ - Header => A small welcome message followed by the user Name.
+ - Data => A section where the user can follow his/her progress in terms of last locations and achievements unlocked.
+By clicking in the "Procurar Locais" button, a new page appears, the Map Page.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Inside the Map Page 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is a work in progress and a lot can be changed.
+
+Features implemented:
+ - Pedometer
+ - REST API integration
+ - Location Coordinates
+ - Google Maps
+ - Biometric Sensors
+ - Giroscope
+ - Shared Preferences
+
+To-Do List:
+ - Develop API to test different Models that are hardcoded ATM.
+ - Fix some visual content (Main page, Register Page)
+ - Add Settings menu
+ - Integrate the Compass and QR Code pages
+ - Unlock achievements

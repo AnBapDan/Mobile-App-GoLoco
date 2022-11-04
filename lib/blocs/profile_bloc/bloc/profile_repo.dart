@@ -41,6 +41,6 @@ class ProfileRepository {
     //   throw Exception(response.reasonPhrase);
     // }
     return ProfileModel(
-        name: 'Emulated', avatar: 'assets/avatar.png', token: 'abcde');
+        name: 'Daniel', avatar: 'assets/avatar.png', token: 'abcde');
   }
 }

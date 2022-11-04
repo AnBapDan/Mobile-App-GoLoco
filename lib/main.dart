@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_bloc.dart';
 import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_repo.dart';
 import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
 import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
@@ -52,6 +53,11 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => MarkersBloc(
               RepositoryProvider.of<MarkersRepository>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => AchievementBloc(
+              RepositoryProvider.of<AchievementRepository>(context),
             ),
           ),
         ],

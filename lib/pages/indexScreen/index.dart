@@ -30,6 +30,7 @@ class IndexPage extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 BlocBuilder<ProfileBloc, ProfileState>(

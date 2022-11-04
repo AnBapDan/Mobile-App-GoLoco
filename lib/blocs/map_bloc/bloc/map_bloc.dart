@@ -1,6 +1,5 @@
 // ignore_for_file: void_checks
 
-import 'dart:async';
 import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
 import 'package:cm_project/pages/mapScreen/utils/location.dart';
 import 'package:equatable/equatable.dart';

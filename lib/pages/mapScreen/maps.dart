@@ -47,7 +47,7 @@ class MapsPageState extends State<MapsPage> {
                     myLocationEnabled: true,
                     myLocationButtonEnabled: false,
                     markers: {...markersWidget},
-                    minMaxZoomPreference: MinMaxZoomPreference(16, 20),
+                    minMaxZoomPreference: MinMaxZoomPreference(10, 20),
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(

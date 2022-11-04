@@ -9,12 +9,10 @@ class RegisterButton extends StatelessWidget {
   final String name;
   final String email;
   final String password;
-  final String check;
 
   const RegisterButton({
     Key? key,
     required this.password,
-    required this.check,
     required this.name,
     required this.email,
   }) : super(key: key);
@@ -27,26 +25,17 @@ class RegisterButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       onPressed: () async {
-        // if (false) {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       duration: Duration(seconds: 3),
-        //       content: Text('Erros detetados'),
-        //     ),
-        //   );
-        //   return;
-        // }
-        if (password != check) {
+        print(name);
+        if (false) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               duration: Duration(seconds: 3),
-              content: Text('Verifica as passwords'),
+              content: Text('Erros detetados'),
             ),
           );
           return;
         }
         String? deviceId = await PlatformDeviceId.getDeviceId;
-
         return BlocProvider.of<ProfileBloc>(context).add(
           CreateProfileEvent(
             name,

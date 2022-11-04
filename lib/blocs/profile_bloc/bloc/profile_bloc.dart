@@ -19,7 +19,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       //check biometrics / pin
       final isAuthenticated = await FingerPrint.authenticate();
       //TODO
-      if (!isAuthenticated) {}
+      if (!isAuthenticated) {
+        emit(ProfileNotAuthState());
+        return;
+      }
 
       //Get key if exists
       SharedPreferences sp = await SharedPreferences.getInstance();

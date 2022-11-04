@@ -21,6 +21,11 @@ class ProfileCreateState extends ProfileState {
   List<Object?> get props => [];
 }
 
+class ProfileNotAuthState extends ProfileState {
+  @override
+  List<Object?> get props => [];
+}
+
 class ProfileErrorState extends ProfileState {
   ProfileErrorState(this.error);
   final String error;
