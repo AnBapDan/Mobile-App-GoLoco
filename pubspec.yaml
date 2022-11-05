@@ -54,7 +54,6 @@ dependencies:
   flutter_compass: ^0.7.0
   geolocator: ^9.0.2
   vector_math: any
-  google_fonts: ^3.0.1
   full_screen_image_null_safe: ^2.0.0  
   qr_code_scanner: ^1.0.1
   
