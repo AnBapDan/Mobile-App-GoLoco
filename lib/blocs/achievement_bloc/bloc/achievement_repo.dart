@@ -4,9 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:cm_project/models/achievement_model.dart';
 
-final String url = '';
-
 class AchievementRepository {
+  String url = 'http://192.168.31.247:3000/';
   Future<List<AchievementModel>> getAchievements() async {
     // Response response = await get(Uri.parse(url));
     // if (response.statusCode == 200) {

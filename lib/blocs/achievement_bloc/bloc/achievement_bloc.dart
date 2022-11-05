@@ -21,6 +21,10 @@ class AchievementBloc extends Bloc<AchievementEvent, AchievementState> {
     on<LoadAchievementEvent>(
       (event, emit) async {
         emit(AchievementLoadingState());
+
+        if (await Permission.activityRecognition.isDenied) {
+          await Permission.activityRecognition.request();
+        }
         List<AchievementModel> achievements =
             await _achievementRepository.getAchievements();
         emit(
@@ -28,11 +32,9 @@ class AchievementBloc extends Bloc<AchievementEvent, AchievementState> {
         );
       },
     );
+
     on<PedestrianEvent>(
       (event, emit) async {
-        if (await Permission.activityRecognition.isDenied) {
-          await Permission.activityRecognition.request();
-        }
         bool off = true;
         int offset = 0;
         await emit.forEach(

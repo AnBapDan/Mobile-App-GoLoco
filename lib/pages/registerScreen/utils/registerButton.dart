@@ -4,7 +4,6 @@ import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:cm_project/pages/registerScreen/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 class RegisterButton extends StatelessWidget {
   final String name;
@@ -25,7 +24,10 @@ class RegisterButton extends StatelessWidget {
       shape: ContinuousRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      onPressed: () async {
+      onPressed: () {
+        print("password = $password");
+        print("nome = $name");
+        print("email = $email");
         if (!nameValidator(name, context)) {
           return;
         } else if (!emailValidator(email, context)) {

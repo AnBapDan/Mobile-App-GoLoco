@@ -18,10 +18,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
       //check biometrics / pin
       final isAuthenticated = await FingerPrint.authenticate();
-      //TODO
+
       if (!isAuthenticated) {
-        emit(ProfileNotAuthState());
-        return;
+        //TODO Remove comments
+        //emit(ProfileNotAuthState());
+        //return;
       }
 
       //Get key if exists
