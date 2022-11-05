@@ -38,19 +38,6 @@ class RegisterPage extends StatelessWidget {
                       cursorColor: Color.fromARGB(255, 255, 255, 255),
                       cursorWidth: 1,
                       decoration: formatTextField(context, 'Nome'),
-
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'Campo Obrigatorio';
-                      //   }
-                      //   bool valid = RegExp("^([ \u00c0-\u01ffa-zA-Z'\-])+\$")
-                      //       .hasMatch(value.toString());
-                      //   if (!valid) {
-                      //     return 'O nome nao deve conter caracteres especiais nem numeros';
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
                     ),
                     space(context),
                     TextField(
@@ -58,19 +45,6 @@ class RegisterPage extends StatelessWidget {
                       cursorColor: Color.fromARGB(255, 255, 255, 255),
                       cursorWidth: 1,
                       decoration: formatTextField(context, 'Email'),
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'Campo Obrigatorio';
-                      //   }
-                      //   bool emailValid = RegExp(
-                      //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      //       .hasMatch(value.toString());
-                      //   if (!emailValid) {
-                      //     return 'Email invalido. Verifique novamente';
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
                     ),
                     space(context),
                     TextField(
@@ -81,12 +55,6 @@ class RegisterPage extends StatelessWidget {
                       cursorColor: Color.fromARGB(255, 255, 255, 255),
                       cursorWidth: 1,
                       decoration: formatTextField(context, 'Password'),
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'Campo Obrigatorio';
-                      //   }
-                      //   return null;
-                      // },
                     ),
                   ],
                 ),
@@ -98,9 +66,9 @@ class RegisterPage extends StatelessWidget {
               ),
               RegisterButton(
                 //TODO ARGS NOT PASSING
-                name: nameController.toString(),
-                email: emailController.text,
-                password: passwordController.text,
+                name: nameController.text.toString(),
+                email: emailController.text.toString(),
+                password: passwordController.text.toString(),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cm_project/blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:cm_project/pages/registerScreen/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platform_device_id/platform_device_id.dart';
@@ -25,17 +26,14 @@ class RegisterButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       onPressed: () async {
-        print(name);
-        if (false) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              duration: Duration(seconds: 3),
-              content: Text('Erros detetados'),
-            ),
-          );
+        if (!nameValidator(name, context)) {
+          return;
+        } else if (!emailValidator(email, context)) {
+          return;
+        } else if (!passwordValidator(password, context)) {
           return;
         }
-        String? deviceId = await PlatformDeviceId.getDeviceId;
+
         return BlocProvider.of<ProfileBloc>(context).add(
           CreateProfileEvent(
             name,

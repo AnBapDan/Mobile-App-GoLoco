@@ -7,14 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileRepository {
   Future<ProfileModel> getProfile(String key) async {
-    // String profileEndpoint = 'http://localhost:3000/${key.toString()}';
-    // http.Response response = await http.get(Uri.parse(profileEndpoint));
-    // if (response.statusCode == 200) {
-    //   return ProfileModel.fromJson(jsonDecode(response.body));
-    // } else {
-    //   throw Exception(response.reasonPhrase);
-    // }
-    return ProfileModel(name: 'Dani', avatar: 'assets/avatar.png', token: '');
+    String profileEndpoint = 'http://localhost:3000/profile/${key.toString()}';
+    http.Response response = await http.get(Uri.parse(profileEndpoint));
+    if (response.statusCode == 200) {
+      return ProfileModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception(response.reasonPhrase);
+    }
+    //return ProfileModel(name: 'Dani', avatar: 'assets/avatar.png', token: '');
   }
 
   Future<ProfileModel> createProfile(
@@ -23,24 +23,23 @@ class ProfileRepository {
     String password,
     String deviceId,
   ) async {
-    // SharedPreferences sp = await SharedPreferences.getInstance();
-    // String profileEndpoint = 'http://localhost:3000/create_account';
-    // http.Response response = await http.post(
-    //   Uri.parse(profileEndpoint),
-    //   body: {
-    //     'name': name,
-    //     'email': email,
-    //     'password': password,
-    //     'deviceId': deviceId,
-    //   },
-    // );
-    // if (response.statusCode == 200) {
-    //   sp.setString('user_key', jsonDecode(response.body)['key']);
-    //   return ProfileModel.fromJson(jsonDecode(response.body)['profile']);
-    // } else {
-    //   throw Exception(response.reasonPhrase);
-    // }
-    return ProfileModel(
-        name: 'Daniel', avatar: 'assets/avatar.png', token: 'abcde');
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String profileEndpoint = 'http://localhost:3000/create_account';
+    http.Response response = await http.post(
+      Uri.parse(profileEndpoint),
+      body: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'deviceId': deviceId,
+      },
+    );
+    if (response.statusCode == 200) {
+      sp.setString('user_key', jsonDecode(response.body)['key']);
+      return ProfileModel.fromJson(jsonDecode(response.body)['profile']);
+    } else {
+      throw Exception(response.reasonPhrase);
+    }
+    //return ProfileModel( name: 'Daniel', avatar: 'assets/avatar.png', token: 'abcde');
   }
 }
