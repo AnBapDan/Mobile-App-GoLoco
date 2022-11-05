@@ -13,19 +13,10 @@ class MarkersRepository {
     Response response =
         await get(Uri.parse("${url}markers/${sp.getString('user_key')}"));
     if (response.statusCode == 200) {
-      final List markers = jsonDecode(response.body)[''];
+      final List markers = jsonDecode(response.body);
       return markers.map((e) => MarkersModel.fromJson(e)).toList();
     } else {
       throw Exception(response.reasonPhrase);
     }
-    // List<MarkersModel> markers = [];
-    // markers.add(MarkersModel(
-    //   id: '1',
-    //   name: 'Teste',
-    //   pos: LatLng(40.634962, -8.648256),
-    //   status: false,
-    //   url: Uri.parse('http://google.com'),
-    // ));
-    //return markers.toList();
   }
 }

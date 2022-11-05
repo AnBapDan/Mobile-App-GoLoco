@@ -29,7 +29,7 @@ Widget createAchievements() {
       return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: achievements.length,
+        itemCount: achievements.length <= 5 ? achievements.length : 5,
         itemBuilder: ((context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -43,7 +43,7 @@ Widget createAchievements() {
                 child: ListTile(
                   leading: CircleAvatar(
                       backgroundImage: Image.asset(
-                        'assets/logo_short.png',
+                        achievements[index].image,
                       ).image,
                       backgroundColor: Colors.transparent,
                       radius: 20),
@@ -55,7 +55,7 @@ Widget createAchievements() {
                       'Desbloqueia em ${achievements[index].value - state.steps} passos',
                       style: Theme.of(context).textTheme.caption),
                   trailing: Text(
-                    'Bloqueado',
+                    achievements[index].date,
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   dense: true,

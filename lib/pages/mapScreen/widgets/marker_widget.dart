@@ -27,15 +27,19 @@ Marker BuildMarkerWidget(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Titulo',
+                    marker.name,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   Spacer(),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.35,
                     width: MediaQuery.of(context).size.height * 0.4,
-                    child: Image.asset(
-                      'assets/deti.png',
+                    // child: Image.asset(
+                    //   'assets/deti.png',
+                    //   fit: BoxFit.fill,
+                    // ),~
+                    child: Image.network(
+                      marker.image,
                       fit: BoxFit.fill,
                     ),
                   ),
