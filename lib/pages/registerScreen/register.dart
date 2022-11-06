@@ -5,7 +5,6 @@ import 'package:cm_project/pages/registerScreen/utils/format_field.dart';
 import 'package:cm_project/pages/registerScreen/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'utils/registerButton.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({
@@ -134,12 +133,5 @@ class RegisterPage extends StatelessWidget {
       ),
     );
   }
-
-  // Padding space(BuildContext context) {
-  //   return Padding(
-  //     padding: EdgeInsets.fromLTRB(
-  //         0, 0, 0, MediaQuery.of(context).size.height * 0.03),
-  //   );
-  // }
 }
 
