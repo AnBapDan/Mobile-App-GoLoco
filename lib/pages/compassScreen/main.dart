@@ -1,6 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:math';
 
-import 'package:compassapp/qrview.dart';
+import 'package:cm_project/pages/compassScreen/qrview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -112,26 +114,22 @@ class _MyHomePageState extends State<MyHomePage> {
       long = position.longitude;
       locationMessage = "$lat  " + "  $long";
       double distance = calculateDistance(40.6330811091, -8.65880500925);
-      if(distance < 8 && reachedTheGoal == false){
+      if (distance < 8 && reachedTheGoal == false) {
         print("TOU AQUI 1");
         reachedTheGoal = true;
-         
       }
       distanceMessage = distance.toStringAsFixed(0);
       distanceMessage = distanceMessage + " m";
       getAngle(40.6330811091, -8.65880500925);
-      
-    }
-    );
-   
-    if(reachedTheGoal == true){
-       print("TOU AQUI 2"); 
-        Navigator.push(context,
-        MaterialPageRoute(
-              builder: (context) => QRViewExample(),
-            ));
-        
-            
+    });
+
+    if (reachedTheGoal == true) {
+      print("TOU AQUI 2");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => QRViewExample(),
+          ));
     }
   }
 

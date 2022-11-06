@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:cm_project/models/markers_model.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
