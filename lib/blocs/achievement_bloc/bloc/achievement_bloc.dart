@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:cm_project/blocs/achievement_bloc/bloc/achievement_repo.dart';
 import 'package:cm_project/models/achievement_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:location/location.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -49,39 +46,5 @@ class AchievementBloc extends Bloc<AchievementEvent, AchievementState> {
         );
       },
     );
-
-    // on<DistanceEvent>(
-    //   (event, emit) async {
-    //     LocationData? previous;
-    //     double distance = 0;
-    //     //Point Distance
-    //     double calculateDistance(lat1, lon1, lat2, lon2) {
-    //       var p = 0.017453292519943295;
-    //       var c = cos;
-    //       var a = 0.5 -
-    //           c((lat2 - lat1) * p) / 2 +
-    //           c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
-    //       return 12742 * asin(sqrt(a));
-    //     }
-
-    //     await emit.forEach(
-    //       Location().onLocationChanged,
-    //       onData: (data) {
-    //         if (previous != null) {
-    //           distance += calculateDistance(
-    //             previous!.latitude,
-    //             previous!.longitude,
-    //             data.latitude,
-    //             data.longitude,
-    //           );
-    //           return DistanceTraveledState(distance);
-    //         } else {
-    //           previous = data;
-    //           return DistanceTraveledState(distance);
-    //         }
-    //       },
-    //     );
-    //   },
-    // );
   }
 }

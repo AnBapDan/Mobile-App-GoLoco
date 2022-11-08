@@ -1,249 +1,93 @@
-import 'dart:math';
+// // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/cupertino.dart' show CupertinoIcons;
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
+// import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+// import 'package:flutter/cupertino.dart' show CupertinoIcons;
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'dart:math';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class CompassView extends StatefulWidget {
-  const CompassView({
-    Key? key,
-    required this.bearing,
-    required this.heading,
-    this.foregroundColor = Colors.white,
-    this.bearingColor = Colors.red,
-  }) : super(key: key);
+// part 'widgets/custom_painter.dart';
 
-  final double? bearing;
+// class CompassView extends StatelessWidget {
+//   final LatLng goal;
 
-  final double heading;
+//   CompassView({
+//     required this.goal,
+//     Key? key,
+//   }) : super(key: key);
 
-  final Color foregroundColor;
+//   double angle = 0.0;
 
-  final Color bearingColor;
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<MapBloc, MapState>(
+//       builder: (context, state) {
+//         if (state is MapLoadedState) {
+//           angle = RepositoryProvider.of<MapRepository>(context)
+//               .getAngle(state.position, goal);
 
-  @override
-  _CompassViewState createState() => _CompassViewState();
-}
+//           return AspectRatio(
+//             aspectRatio: 1.0,
+//             child: Stack(
+//               fit: StackFit.expand,
+//               children: [
+//                 // Rose Painter
 
-class _CompassViewState extends State<CompassView> {
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.0,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          // Rose Painter
-          CustomPaint(
-            painter: _CompassViewPainter(
-              heading: widget.heading,
-              foregroundColor: widget.foregroundColor,
-            ),
-          ),
-
-          // Bearing Indicator
-          if (widget.bearing != null)
-            Padding(
-              padding: const EdgeInsets.all(35.0),
-              child: Transform.rotate(
-                angle: (widget.bearing! - widget.heading).toRadians(),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Icon(
-                    CupertinoIcons.location_north_line_fill,
-                    color: widget.bearingColor,
-                    size:40,
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CompassViewPainter extends CustomPainter {
-  _CompassViewPainter({
-    required this.heading,
-    required this.foregroundColor,
-    this.majorTickCount = 12,
-    this.minorTickCount = 180,
-    this.cardinalities = const {0: 'N', 90: 'E', 180: 'S', 270: 'W'},
-  });
-
-  final double heading;
-
-  final Color foregroundColor;
-
-  final int majorTickCount;
-
-  final int minorTickCount;
-
-  final CardinalityMap cardinalities;
-
-  late final bearingIndicatorPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = foregroundColor
-    ..strokeWidth = 4.0
-    ..blendMode = BlendMode.difference;
-
-  late final majorScalePaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = foregroundColor
-    ..strokeWidth = 2.0;
-
-  late final minorScalePaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = foregroundColor.withOpacity(0.7)
-    ..strokeWidth = 1.0;
-
-  late final majorScaleStyle = GoogleFonts.blackOpsOne( textStyle: TextStyle(
-    color: foregroundColor,
-    fontSize: 15,
-  ));
-
-  late final cardinalityStyle = GoogleFonts.blackOpsOne( textStyle: TextStyle(
-    color: foregroundColor,
-    fontSize: 32,
-  ));
-
-  late final _majorTicks = _layoutScale(majorTickCount);
-  late final _minorTicks = _layoutScale(minorTickCount);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    assert(size.width == size.height, 'Size must be square');
-    const origin = Offset.zero;
-    final center = size.center(origin);
-    final radius = size.width / 2;
-
-    const tickPadding = 55.0;
-    const tickLength = 20.0;
-
-    // paint major scale
-    for (final angle in _majorTicks) {
-      final tickStart = Offset.fromDirection(
-        _correctedAngle(angle).toRadians(),
-        radius - tickPadding,
-      );
-
-      final tickEnd = Offset.fromDirection(
-        _correctedAngle(angle).toRadians(),
-        radius - tickPadding - tickLength,
-      );
-
-      canvas.drawLine(
-        center + tickStart,
-        center + tickEnd,
-        majorScalePaint,
-      );
-    }
-
-    // paint minor scale
-    for (final angle in _minorTicks) {
-      final tickStart = Offset.fromDirection(
-        _correctedAngle(angle).toRadians(),
-        radius - tickPadding,
-      );
-
-      final tickEnd = Offset.fromDirection(
-        _correctedAngle(angle).toRadians(),
-        radius - tickPadding - tickLength,
-      );
-
-      canvas.drawLine(
-        center + tickStart,
-        center + tickEnd,
-        minorScalePaint,
-      );
-    }
-
-    // paint bearing indicator
-    final tickStart = Offset.fromDirection(
-      -90.toRadians(),
-      radius,
-    );
-
-    final tickEnd = Offset.fromDirection(
-      -90.toRadians(),
-      radius - tickPadding - tickLength,
-    );
-
-    canvas.drawLine(
-      center + tickStart,
-      center + tickEnd,
-      bearingIndicatorPaint,
-    );
-
-    // paint major scale text
-    for (final angle in _majorTicks) {
-      const majorScaleTextPadding = 20.0;
-
-      final textPainter = TextSpan(
-        text: angle.toStringAsFixed(0),
-        style: majorScaleStyle,
-      ).toPainter()
-        ..layout();
-
-      final layoutOffset = Offset.fromDirection(
-        _correctedAngle(angle).toRadians(),
-        radius - majorScaleTextPadding,
-      );
-
-      final offset = center + layoutOffset - textPainter.center;
-      textPainter.paint(canvas, offset);
-    }
-
-    // paint cardinality text
-    for (final cardinality in cardinalities.entries) {
-      const majorScaleTextPadding = 100.0;
-
-      final angle = cardinality.key.toDouble();
-      final text = cardinality.value;
-
-      final textPainter = TextSpan(
-        text: text,
-        style: cardinalityStyle,
-      ).toPainter()
-        ..layout();
-
-      final layoutOffset = Offset.fromDirection(
-        _correctedAngle(angle).toRadians(),
-        radius - majorScaleTextPadding,
-      );
-
-      final offset = center + layoutOffset - textPainter.center;
-      textPainter.paint(canvas, offset);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_CompassViewPainter oldDelegate) =>
-      oldDelegate.heading != heading ||
-      oldDelegate.foregroundColor != foregroundColor ||
-      oldDelegate.majorTickCount != majorTickCount ||
-      oldDelegate.minorTickCount != minorTickCount;
-
-  List<double> _layoutScale(int ticks) {
-    final scale = 360 / ticks;
-    return List.generate(ticks, (i) => i * scale);
-  }
-
-  double _correctedAngle(double angle) => angle - heading - 90;
-}
-
-typedef CardinalityMap = Map<num, String>;
-
-extension on TextPainter {
-  Offset get center => size.center(Offset.zero);
-}
-
-extension on TextSpan {
-  TextPainter toPainter({TextDirection textDirection = TextDirection.ltr}) =>
-      TextPainter(text: this, textDirection: textDirection);
-}
-
-extension on num {
-  double toRadians() => this * pi / 180;
-}
+//                 CustomPaint(
+//                   painter: _CompassViewPainter(
+//                     heading: state.position.heading,
+//                     foregroundColor: Color.fromARGB(255, 202, 225, 229),
+//                   ),
+//                 ),
+              // Text(
+              //   'aaaa',
+              //   style: Theme.of(context).textTheme.headline3,
+              // ),
+//                 // Bearing Indicator
+//                 Padding(
+//                   padding: const EdgeInsets.all(35.0),
+//                   child: Transform.rotate(
+//                     angle: (angle - state.position.heading).toRadians(),
+//                     child: Align(
+//                       alignment: Alignment.topCenter,
+//                       child: Icon(
+//                         CupertinoIcons.location_north_line_fill,
+//                         color: Colors.red,
+//                         size: 40,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         } else {
+//           return Center(
+//             child: CircularProgressIndicator(),
+//           );
+//         }
+//       },
+//     );
+//   }
+// }
+          // compassAsset: Padding(
+          //   padding: const EdgeInsets.all(35.0),
+          //   child: SizedBox(
+          //     height: MediaQuery.of(context).size.height * 0.4,
+          //     width: MediaQuery.of(context).size.height * 0.4,
+          //     child: Transform.rotate(
+          //       angle: radians(angle - state.position.heading),
+          //       child: Align(
+          //         alignment: Alignment.topCenter,
+          //         child: Icon(
+          //           CupertinoIcons.location_north_line_fill,
+          //           color: Colors.red,
+          //           size: 40,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),

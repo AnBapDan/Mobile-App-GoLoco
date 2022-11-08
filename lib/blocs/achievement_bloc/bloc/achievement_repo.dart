@@ -6,7 +6,7 @@ import 'package:cm_project/models/achievement_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AchievementRepository {
-  String url = 'http://192.168.31.247:3000/';
+  String url = 'http://192.168.0.11:3000/';
   Future<List<AchievementModel>> getAchievements() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     Response response =

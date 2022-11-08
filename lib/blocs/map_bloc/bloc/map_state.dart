@@ -9,7 +9,7 @@ class MapLoadingState extends MapState {
 }
 
 class MapLoadedState extends MapState {
-  final LocationData position;
+  final Position position;
   MapLoadedState(this.position);
 
   @override

@@ -51,8 +51,8 @@ class MapsPageState extends State<MapsPage> {
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
-                        state.position.latitude!,
-                        state.position.longitude!,
+                        state.position.latitude,
+                        state.position.longitude,
                       ),
                       zoom: 19,
                     ),

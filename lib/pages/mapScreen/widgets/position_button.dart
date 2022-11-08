@@ -17,7 +17,7 @@ class PositionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MapState mapState = BlocProvider.of<MapBloc>(context).state;
-    return Container(
+    return SizedBox(
       width: 50,
       height: 50,
       child: FittedBox(
@@ -28,10 +28,10 @@ class PositionButton extends StatelessWidget {
               controller.animateCamera(
                 CameraUpdate.newCameraPosition(
                   CameraPosition(
-                      bearing: mapState.position.heading!,
+                      bearing: mapState.position.heading,
                       target: LatLng(
-                        mapState.position.latitude!,
-                        mapState.position.longitude!,
+                        mapState.position.latitude,
+                        mapState.position.longitude,
                       ),
                       zoom: 18),
                 ),

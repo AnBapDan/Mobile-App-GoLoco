@@ -188,13 +188,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.1"
-  flutter_compass:
-    dependency: "direct main"
-    description:
-      name: flutter_compass
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -216,6 +209,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  flutter_sensors:
+    dependency: transitive
+    description:
+      name: flutter_sensors
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -352,13 +352,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.7.0"
-  latlng:
-    dependency: transitive
-    description:
-      name: latlng
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   lints:
     dependency: transitive
     description:
@@ -401,34 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  location:
-    dependency: "direct main"
-    description:
-      name: location
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.4.0"
-  location_platform_interface:
-    dependency: transitive
-    description:
-      name: location_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.0"
-  location_web:
-    dependency: transitive
-    description:
-      name: location_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.1"
-  map:
-    dependency: "direct main"
-    description:
-      name: map
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.4"
   matcher:
     dependency: transitive
     description:
@@ -735,6 +700,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_compass:
+    dependency: "direct main"
+    description:
+      name: smooth_compass
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
   source_span:
     dependency: transitive
     description:

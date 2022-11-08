@@ -13,52 +13,46 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileBloc, ProfileState>(
-      listener: (context, state) {
-        print("Estado $state");
-      },
-      child: BlocBuilder<ProfileBloc, ProfileState>(
-        bloc: BlocProvider.of<ProfileBloc>(context),
-        builder: (context, state) {
-          if (state is ProfileLoadingState) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Image.asset(
-                    'assets/logo.png',
-                  ),
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      bloc: BlocProvider.of<ProfileBloc>(context),
+      builder: (context, state) {
+        if (state is ProfileLoadingState) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Image.asset(
+                  'assets/logo.png',
                 ),
-              ],
-            );
-          } else if (state is ProfileCreateState) {
-            return RegisterPage();
-          } else if (state is ProfileLoadedState) {
-            BlocProvider.of<MarkersBloc>(context).add(LoadMarkersEvent());
-            BlocProvider.of<AchievementBloc>(context)
-                .add(LoadAchievementEvent());
-            WidgetsFlutterBinding.ensureInitialized();
-            return IndexPage(context);
-          } else if (state is ProfileNotAuthState) {
-            return AuthFailed();
-          } else if (state is ProfileErrorState) {
-            print(state.error);
-            return Center(
-              child: Text(
-                'Oops, algo deu errado.',
-                style: Theme.of(context).textTheme.headline1,
               ),
-            );
-          }
+            ],
+          );
+        } else if (state is ProfileCreateState) {
+          return RegisterPage();
+        } else if (state is ProfileLoadedState) {
+          BlocProvider.of<MarkersBloc>(context).add(LoadMarkersEvent());
+          BlocProvider.of<AchievementBloc>(context).add(LoadAchievementEvent());
+          WidgetsFlutterBinding.ensureInitialized();
+          return IndexPage(context);
+        } else if (state is ProfileNotAuthState) {
+          return AuthFailed();
+        } else if (state is ProfileErrorState) {
+          print(state.error);
           return Center(
             child: Text(
-              '???.',
+              'Oops, algo deu errado.',
               style: Theme.of(context).textTheme.headline1,
             ),
           );
-        },
-      ),
+        }
+        return Center(
+          child: Text(
+            '???.',
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        );
+      },
     );
   }
 }
