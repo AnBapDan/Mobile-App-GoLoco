@@ -2,6 +2,7 @@
 
 import 'package:cm_project/models/markers_model.dart';
 import 'package:cm_project/pages/compassScreen/compass.dart';
+import 'package:cm_project/pages/qrScreen/qr_code.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

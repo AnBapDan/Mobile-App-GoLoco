@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
 import 'package:cm_project/blocs/map_bloc/bloc/map_repo.dart';
+import 'package:cm_project/pages/qrScreen/qr_code.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smooth_compass/utils/src/compass_ui.dart';
 import 'package:vector_math/vector_math.dart' hide Colors;
-import 'compassview.dart';
 
 part 'widgets/custom_painter.dart';
 
@@ -34,6 +34,13 @@ class CompassPage extends StatelessWidget {
                 if (state is MapLoadedState) {
                   var distance = RepositoryProvider.of<MapRepository>(context)
                       .calculateDistance(state.position, goal);
+                  if (distance < 10) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QRScreen(),
+                      ),
+                    );
+                  }
                   return Text(
                     '${distance.round()} m',
                     style: Theme.of(context).textTheme.headline2,

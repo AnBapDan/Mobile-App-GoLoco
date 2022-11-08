@@ -51,8 +51,7 @@ dependencies:
   local_auth: ^2.1.2
   flutter_launcher_icons: ^0.10.0
   smooth_compass: 
-  vector_math: any
-  full_screen_image_null_safe: ^2.0.0  
+  vector_math: any  
   qr_code_scanner: ^1.0.1
   
 dev_dependencies:
