@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class PlacesWidget extends StatelessWidget {
-  final Color color;
   final String asset;
   final String message;
 
   const PlacesWidget({
     Key? key,
-    required this.color,
     required this.asset,
     required this.message,
   }) : super(key: key);
@@ -29,11 +27,9 @@ class PlacesWidget extends StatelessWidget {
                 SizedBox(
                   height: value,
                   width: value,
-                  child: Image.asset(
+                  child: Image.network(
                     asset,
                     fit: BoxFit.fill,
-                    color: color == Colors.transparent ? null : color,
-                    colorBlendMode: BlendMode.color,
                   ),
                 ),
                 Positioned(

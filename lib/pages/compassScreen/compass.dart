@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors
 
 import 'dart:math';
 
@@ -29,18 +29,30 @@ class CompassPage extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.1,
+              left: 50,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => QRScreen(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 50,
+                  color: Color.fromARGB(255, 202, 225, 229),
+                ),
+              ),
+            ),
             Center(child: BlocBuilder<MapBloc, MapState>(
               builder: (context, state) {
                 if (state is MapLoadedState) {
                   var distance = RepositoryProvider.of<MapRepository>(context)
                       .calculateDistance(state.position, goal);
-                  if (distance < 10) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => QRScreen(),
-                      ),
-                    );
-                  }
+
                   return Text(
                     '${distance.round()} m',
                     style: Theme.of(context).textTheme.headline2,

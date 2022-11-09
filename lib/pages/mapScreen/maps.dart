@@ -47,14 +47,14 @@ class MapsPageState extends State<MapsPage> {
                     myLocationEnabled: true,
                     myLocationButtonEnabled: false,
                     markers: {...markersWidget},
-                    minMaxZoomPreference: MinMaxZoomPreference(10, 20),
+                    minMaxZoomPreference: MinMaxZoomPreference(15, 20),
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
                         state.position.latitude,
                         state.position.longitude,
                       ),
-                      zoom: 19,
+                      zoom: 17,
                     ),
                     onMapCreated: (GoogleMapController controller) async {
                       changeMapMode(controller);

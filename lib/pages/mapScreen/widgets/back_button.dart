@@ -15,6 +15,10 @@ class BackButton extends StatelessWidget {
         height: 50,
         child: FittedBox(
           child: FloatingActionButton(
+            backgroundColor: Colors.black,
+            shape: ContinuousRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             heroTag: null,
             onPressed: () {
               Navigator.pop(context);

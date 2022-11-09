@@ -1,8 +1,5 @@
 import 'dart:io';
-
-import 'package:cm_project/blocs/map_bloc/bloc/map_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScreen extends StatefulWidget {
@@ -30,17 +27,16 @@ class _QRScreenState extends State<QRScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(
-      builder: (context, state) {
-        return Scaffold(
-          body: Center(
-            child: Expanded(
-              flex: 4,
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Expanded(
               child: _buildQrView(context),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 
@@ -70,9 +66,7 @@ class _QRScreenState extends State<QRScreen> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      result = scanData;
     });
   }
 

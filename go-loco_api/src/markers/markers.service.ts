@@ -31,9 +31,42 @@ export class MarkersService {
                 "image": "https://api-assets.ua.pt/v1/image/resizer?imageUrl=https%3A%2F%2Fapi-assets.ua.pt%2Ffiles%2Fimgs%2F000%2F000%2F891%2Foriginal.jpg&width=1200",
                  "url": "https://www.ua.pt/",
             },
-            
-            
-
+            {  
+                "id": "004",
+                "name": "DBIO",
+                "lat":  40.63392046383207, 
+                "lon":  -8.659353152972047,
+                "status": "true",
+                "image": "https://api-assets.ua.pt/v1/image/resizer?imageUrl=https%3A%2F%2Fuaonline.ua.pt%2Fupload%2Fimg%2Fjoua_i_15573.jpg&width=1200",
+                 "url": "https://www.ua.pt/",
+            },
+            {  
+                "id": "005",
+                "name": "DLC",
+                "lat":  40.635540694661756,
+                "lon":  -8.657700912222332,
+                "status": "true",
+                "image": "https://api-assets.ua.pt/v1/image/resizer?imageUrl=https%3A%2F%2Fuaonline.ua.pt%2Fupload%2Fimg%2Fjoua_i_1479.jpg&width=1200",
+                 "url": "https://www.ua.pt/",
+            },
+            {  
+                "id": "006",
+                "name": "DFIS",
+                "lat":  40.630410368200515,
+                "lon": -8.65672509530007,
+                "status": "true",
+                "image": "https://api-assets.ua.pt/v1/image/resizer?imageUrl=https%3A%2F%2Fapi-assets.ua.pt%2Ffiles%2Fimgs%2F000%2F000%2F339%2Foriginal.jpg&height=1920",
+                 "url": "https://www.ua.pt/",
+            }, 
+            {  
+                "id": "100",
+                "name": "TESTE",
+                "lat": 40.634767708009754,
+                "lon": -8.648009000114778,
+                "status": "false",
+                "image": "https://api-assets.ua.pt/v1/image/resizer?imageUrl=https%3A%2F%2Fapi-assets.ua.pt%2Ffiles%2Fimgs%2F000%2F000%2F339%2Foriginal.jpg&height=1920",
+                 "url": "https://www.ua.pt/",
+            }, 
         ];
     }
 }

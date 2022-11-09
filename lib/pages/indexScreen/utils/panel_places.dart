@@ -2,8 +2,10 @@
 
 import 'dart:math';
 
+import 'package:cm_project/blocs/markers_bloc/bloc/marker_bloc.dart';
 import 'package:cm_project/utils/places_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Places extends StatelessWidget {
   Places({
@@ -27,16 +29,33 @@ class Places extends StatelessWidget {
           child: SizedBox(
               height: size.height / 5,
               width: size.width,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return PlacesWidget(
-                    color:
-                        Random().nextBool() ? Colors.transparent : Colors.grey,
-                    asset: 'assets/deti.png',
-                    message: 'This is a test',
+              child: BlocBuilder<MarkersBloc, MarkersState>(
+                builder: (context, state) {
+                  if (state is! MarkersLoadedState) {
+                    return Center(
+                      child: Text(
+                        'A Processar...',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    );
+                  }
+                  var completedMarkers = state.markers
+                      .where((element) => element.status == true)
+                      .toList();
+                  return Center(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: completedMarkers.length <= 5
+                          ? completedMarkers.length
+                          : 5,
+                      itemBuilder: (context, index) {
+                        return PlacesWidget(
+                          asset: completedMarkers[index].image,
+                          message: completedMarkers[index].name,
+                        );
+                      },
+                    ),
                   );
                 },
               )),
