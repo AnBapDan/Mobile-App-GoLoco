@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MarkersRepository {
-  String url = 'http://192.168.0.11:3000/';
+  String url = 'http://192.168.178.87:3000/';
   Future<List<MarkersModel>> getMarkers() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     Response response =

@@ -1,6 +1,8 @@
 # GoLoco Application
 
 An Application built to search nearby places
+This code is available at:
+[I'm an inline-style link](https://github.com/AnBapDan/Mobile-App-GoLoco)
 
 ## Description
 GoLoco is an application that helps the community finding new locations to visit and explore.
@@ -31,11 +33,8 @@ Features implemented:
 
 To-Do List:
  - Develop API to test different Models that are hardcoded ATM.
- - Fix some visual content (Main page, Register Page)
  - Add Settings menu
- - Integrate the Compass and QR Code pages
+ - Fix QR Code page
  - Unlock achievements
- - Fixed Register Button Verification
- - Check Keyboard Overflow
 
  ![Screenshot](assets/logo.png)

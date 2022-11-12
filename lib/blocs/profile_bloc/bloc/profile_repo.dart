@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileRepository {
-  String url = 'http://192.168.0.11:3000/';
+  String url = 'http://192.168.178.87:3000/';
 
   Future<ProfileModel> getProfile(String key) async {
     String profileEndpoint = '${url}profile/key/${key.toString()}';
