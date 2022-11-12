@@ -2,7 +2,7 @@
 
 An Application built to search nearby places
 This code is available at:
-[I'm an inline-style link](https://github.com/AnBapDan/Mobile-App-GoLoco)
+[GoLoco](https://github.com/AnBapDan/Mobile-App-GoLoco)
 
 ## Description
 GoLoco is an application that helps the community finding new locations to visit and explore.
